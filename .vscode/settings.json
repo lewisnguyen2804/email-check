@@ -1,0 +1,20 @@
+{
+  "editor.codeActionsOnSave": {
+      "source.addMissingImports": "explicit",
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+  },
+  "[javascript]": {
+      "editor.autoIndent": "keep",
+      "editor.showUnused": false
+  },
+  "[yaml]": {
+      "editor.autoIndent": "advanced"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.referencesCodeLens.enabled": true,
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "editor.tabSize": 2,
+}
