@@ -5,7 +5,7 @@ const nextConfig = {
     serverComponentsExternalPackages:['mongoose','@typegoose/typegoose']
 },
   // basePath: '/email',
-  // assetPrefix: '/',
+  assetPrefix: '/email',
 images: {
   remotePatterns: [
     {
