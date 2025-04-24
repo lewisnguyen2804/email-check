@@ -4,13 +4,13 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages:['mongoose','@typegoose/typegoose']
 },
-basePath: '/email',
-assetPrefix: '/email/',
+  // basePath: '/email',
+  // assetPrefix: '/',
 images: {
   remotePatterns: [
     {
       protocol: "https",
-      hostname: "inthrms.paxanimi.ai",
+      hostname: "stghrms.paxanimi.ai",
       pathname: '/**',
       port: '',
     },

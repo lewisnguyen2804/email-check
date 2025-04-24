@@ -28,7 +28,7 @@ export const Environment = () => {
         router.push(`${pathname}?${createQueryString("env", value)}`);
         router.refresh();
       }}
-      defaultValue={searchParams.get("env") || "dev"}
+      defaultValue={searchParams.get("env") || "stg"}
     >
       <SelectTrigger className="w-[200px]">
         <SelectValue placeholder="Select a env" />

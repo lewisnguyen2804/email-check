@@ -19,7 +19,7 @@ export default async function EmailPage({
   const currentPage = parseInt(searchParams.page || "1");
   const template = searchParams?.template || "";
   const search = searchParams?.search || "";
-  const base = searchParams?.env || "dev";
+  const base = searchParams?.env || "stg";
 
   const { data } = await getLogsApi(base, {
     page: currentPage,
