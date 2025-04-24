@@ -11,5 +11,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/email"
+  base: "/email",
+  preview: {
+    port: 3000,
+  }
 })
