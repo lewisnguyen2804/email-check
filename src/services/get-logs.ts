@@ -8,24 +8,33 @@ export interface GetLogDto {
   limit?: number
 }
 
-export async function getLogsApi(base: string, { search, template, page = 1, limit = 10 }: GetLogDto) {
-  let loading = true
+export async function getLogsApi(
+  base: string,
+  { search, template, page = 1, limit = 10 }: GetLogDto,
+  signal?: AbortSignal
+) {
   try {
     const query = new URLSearchParams({
       page: page.toString(),
       limit: limit.toString(),
-      search: search?.toString() || '',
-      template: template?.toString() || ''
-    })
-    const { data } = await callApi(base, `/notification-api/send-mail/logs?${query}`, {
-      method: 'GET',
-    })
+      search: search || "",
+      template: template || "",
+    });
 
-    loading = false
-    return { data, loading }
+    const res = await callApi(base, `/notification-api/send-mail/logs?${query}`, {
+      method: 'GET',
+      signal,
+    });
+
+    return {
+      data: res?.data || [],
+      total: res?.total || 0,
+    };
   } catch (error) {
-    console.log(error)
-    loading = false
-    return { data: [], loading }
+    console.error(error);
+    return {
+      data: [],
+      total: 0,
+    };
   }
 }

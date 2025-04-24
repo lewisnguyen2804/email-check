@@ -1,22 +1,23 @@
-"use client"
-
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "nextjs-toploader/app";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { useCallback } from "react";
 
 export const Environment = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-
       return params.toString();
     },
     [searchParams]
@@ -25,13 +26,14 @@ export const Environment = () => {
   return (
     <Select
       onValueChange={(value) => {
-        router.push(`${pathname}?${createQueryString("env", value)}`);
-        router.refresh();
+        navigate(`${location.pathname}?${createQueryString("env", value)}`, {
+          replace: true,
+        });
       }}
-      defaultValue={searchParams.get("env") || "dev"}
+      defaultValue={searchParams.get("env") || "stg"}
     >
       <SelectTrigger className="w-[200px]">
-        <SelectValue placeholder="Select a env" />
+        <SelectValue placeholder="Select an env" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -44,4 +46,3 @@ export const Environment = () => {
     </Select>
   );
 };
-

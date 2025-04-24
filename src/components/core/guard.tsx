@@ -1,18 +1,18 @@
-"use client"
+import { FC, ReactNode, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { useLocalStorage } from "usehooks-ts";
 
-import { useRouter } from "nextjs-toploader/app";
-import { FC } from 'react';
-import { useLocalStorage } from 'usehooks-ts';
+const Guard: FC<{ children: ReactNode }> = ({ children }) => {
+  const navigate = useNavigate();
+  const [secret] = useLocalStorage("secret", "");
 
-const Guard: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const router = useRouter();
-  const [secret, setSecret] = useLocalStorage("secret", "")
-
-  if (!secret || secret !== process.env.NEXT_PUBLIC_API_KEY) {
-    router.push("/403");
-  }
+  useEffect(() => {
+    if (!secret || secret !== import.meta.env.VITE_API_KEY) {
+      navigate("/403", { replace: true });
+    }
+  }, [secret, navigate]);
 
   return <>{children}</>;
-}
+};
 
-export default Guard
+export default Guard;

@@ -27,4 +27,5 @@ export const callApi = async (base: string, url: string, options?: RequestInit) 
   } catch (error) {
     console.log(error)
   }
+  
 }

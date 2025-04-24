@@ -18,7 +18,7 @@ export async function getUserApi(base: string, { tenant, prefix, email }: GetUse
     const { data = [] } = await callApi(base, `/auth-api/internal/users/check?${query}`, {
       method: 'GET',
       headers: {
-        'x-api-key': process.env.NEXT_PUBLIC_API_KEY || ''
+        'x-api-key': import.meta.env.VITE_API_KEY || ''
       }
     }) || {}
 

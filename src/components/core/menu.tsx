@@ -1,19 +1,26 @@
-"use client"
+"use client";
 
-import Link from 'next/link'
-import { Button } from '../ui/button'
-import { Environment } from './environment'
+import { Link, useLocation } from "react-router";
+import { Button } from "../ui/button";
+import { Environment } from "./environment";
 
 export const Menu = () => {
+  const location = useLocation();
+  const isUserPathname = location.pathname === "/user";
+  const isEmailPathname = location.pathname === "/email";
   return (
     <div className="flex flex-row gap-4">
       <Environment />
-      <Button>
-        <Link href="/email">Send Mail Loggers</Link>
-      </Button>
-      <Button>
-        <Link href="/user">Check User Endpoints </Link>
-      </Button>
+      {isUserPathname && (
+        <Button>
+          <Link to="/email">Send Mail Loggers</Link>
+        </Button>
+      )}
+      {isEmailPathname && (
+        <Button>
+          <Link to="/user">Check User Endpoints </Link>
+        </Button>
+      )}
     </div>
   );
-}
+};
