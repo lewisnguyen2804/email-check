@@ -30,7 +30,7 @@ export function Authenticate() {
   });
 
   const navigate = useNavigate();
-  const [value, setValue] = useLocalStorage("secret", "");
+  const [, setValue] = useLocalStorage("secret", "");
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setValue(values.secret);

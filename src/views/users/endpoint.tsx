@@ -14,7 +14,7 @@ const Endpoint: FC<{
   key: string;
   locations: string[];
   countries: string[];
-}> = ({ url = "", locations = [], countries = [], key }) => {
+}> = ({ url = "", locations = [], countries = [] }) => {
   const [method, ...uri] = url.split("/");
   const cn = () => {
     switch (method) {
