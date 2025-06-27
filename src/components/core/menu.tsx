@@ -9,7 +9,7 @@ export const Menu = () => {
     <div className="flex flex-row gap-4">
       <Environment />
       <Button>
-        <Link href="/email">Send Mail Loggers</Link>
+        <Link href="/">Send Mail Loggers</Link>
       </Button>
       <Button>
         <Link href="/user">Check User Endpoints </Link>

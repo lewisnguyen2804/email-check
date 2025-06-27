@@ -8,7 +8,7 @@ declare global {
 
 export async function setSecretKey(secret: string) {
   global.__SECRET_KEY__ = secret
-  redirect("/email")
+  redirect("/")
 }
 
 export async function getSecretKey() {
