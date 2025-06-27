@@ -2,20 +2,20 @@
 const nextConfig = {
   experimental: {
     serverActions: true,
-    serverComponentsExternalPackages:['mongoose','@typegoose/typegoose']
-},
+    serverComponentsExternalPackages: ['mongoose', '@typegoose/typegoose']
+  },
   // basePath: '/email',
-  assetPrefix: '/email',
-images: {
-  remotePatterns: [
-    {
-      protocol: "https",
-      hostname: "stghrms.paxanimi.ai",
-      pathname: '/**',
-      port: '',
-    },
-  ],
-},
+  // assetPrefix: '/email',
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "stghrms.paxanimi.ai",
+        pathname: '/**',
+        port: '',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
