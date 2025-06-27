@@ -38,7 +38,7 @@ export function FormSecret() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setValue(values.secret)
-    router.push('/')
+    router.push('/email')
   }
 
   return (
