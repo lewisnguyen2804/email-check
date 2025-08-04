@@ -5,7 +5,8 @@ const urlMap: {
   [key: string]: string;
 } = {
   int: "https://inthrms.paxanimi.ai",
-  dev: "https://devhrms.paxanimi.ai",
+  // dev: "https://devhrms.paxanimi.ai",
+  dev: "http://10.20.2.42",
   stg: "https://stghrms.paxanimi.ai",
   prod: "https://terralogic.paxanimi.ai",
 };
