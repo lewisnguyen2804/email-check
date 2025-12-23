@@ -1,5 +1,5 @@
 
-export const rootUrl = "https://stghrms.paxanimi.ai"
+export const rootUrl = "https://staging.blazeup.ai"
 
 const urlMap: {
   [key: string]: string;
@@ -7,8 +7,8 @@ const urlMap: {
   int: "https://inthrms.paxanimi.ai",
   // dev: "https://devhrms.paxanimi.ai",
   dev: "http://10.20.2.42",
-  stg: "https://stghrms.paxanimi.ai",
-  prod: "https://terralogic.paxanimi.ai",
+  stg: "https://staging.blazeup.ai",
+  // prod: "https://terralogic.paxanimi.ai",
 };
 
 export const callApi = async (base: string, url: string, options?: RequestInit) => {

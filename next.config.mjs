@@ -10,7 +10,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "stghrms.paxanimi.ai",
+        hostname: "staging.blazeup.ai",
         pathname: '/**',
         port: '',
       },
