@@ -1,13 +1,48 @@
 "use client";
 
-import { SendMail } from "@/models/send-mail";
+import { Attachment, SendMail } from "@/models/send-mail";
+import { useMemo } from "react";
 import { Badge } from "../ui/badge";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { TableCell, TableRow } from "../ui/table";
+import AttachmentList from "./AttachmentList";
+
 interface EmailItemProps {
   item: SendMail;
 }
+
+// Replace cid: references with base64 data URLs
+const replaceCidWithDataUrl = (
+  content: string,
+  attachments?: Attachment[]
+): string => {
+  if (!attachments || attachments.length === 0) return content;
+
+  let processedContent = content;
+
+  attachments.forEach((attachment) => {
+    if (attachment.cid && attachment.content && attachment.contentType) {
+      // Create data URL from base64 content
+      const dataUrl = `data:${attachment.contentType};base64,${attachment.content}`;
+
+      // Replace both formats: cid:xxx and cid:xxx (with or without quotes)
+      const cidPatterns = [
+        new RegExp(`src=["']cid:${attachment.cid}["']`, "gi"),
+        new RegExp(`src=cid:${attachment.cid}`, "gi"),
+      ];
+
+      cidPatterns.forEach((pattern) => {
+        processedContent = processedContent.replace(
+          pattern,
+          `src="${dataUrl}"`
+        );
+      });
+    }
+  });
+
+  return processedContent;
+};
 
 const EmailItem: React.FC<EmailItemProps> = ({ item }) => {
   const createdAt = new Date(item.createdAt);
@@ -34,8 +69,15 @@ const EmailItem: React.FC<EmailItemProps> = ({ item }) => {
       : `0${createdAt.getSeconds()}`
   }`;
 
-  const modifiedContent = `
-  ${item.content}
+  // Process content to replace cid: references with data URLs
+  const modifiedContent = useMemo(() => {
+    const contentWithImages = replaceCidWithDataUrl(
+      item.content,
+      item.attachments
+    );
+
+    return `
+  ${contentWithImages}
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const links = document.querySelectorAll('a');
@@ -46,6 +88,7 @@ const EmailItem: React.FC<EmailItemProps> = ({ item }) => {
     });
   </script>
 `;
+  }, [item.content, item.attachments]);
 
   const createdAtStr = `${year}-${month}-${date} ${hour}:${minute}:${second}`;
   return (
@@ -56,17 +99,20 @@ const EmailItem: React.FC<EmailItemProps> = ({ item }) => {
           <DialogTrigger className="cursor-pointer hover:underline text-blue-500 text-left">
             {item.subject}
           </DialogTrigger>
-          <DialogContent className="max-w-[90vw] lg:max-w-[70vw] min-w-[20vw] w-full h-[90vh]">
-            <div className="w-full overflow-y-auto overflow-hidden border border-slate-200 rounded mt-6">
+          <DialogContent className="max-w-[90vw] lg:max-w-[70vw] min-w-[20vw] w-full h-[90vh] flex flex-col">
+            <div className="flex-1 w-full overflow-y-auto overflow-hidden border border-slate-200 rounded mt-6 flex flex-col">
               <iframe
+                className="flex-1"
                 style={{
                   width: "100%",
-                  minHeight: "600px",
-                  height: "100%",
+                  minHeight: "500px",
                 }}
                 srcDoc={modifiedContent}
                 sandbox="allow-same-origin allow-scripts allow-popups"
               />
+              {item.attachments && item.attachments.length > 0 && (
+                <AttachmentList attachments={item.attachments} />
+              )}
             </div>
           </DialogContent>
         </Dialog>

@@ -6,6 +6,17 @@ class Abstract {
   _id: Types.ObjectId
 }
 
+export interface Attachment {
+  content?: string;
+  filename?: string;
+  path?: string;
+  contentType?: string;
+  cid?: string;
+  size?: number;
+  encoding?: string;
+  raw?: any
+}
+
 @ModelOptions({
   schemaOptions: {
     timestamps: true,
@@ -48,6 +59,9 @@ export class SendMail extends Abstract {
 
   @prop({ type: String })
   tenant: string
+
+  @prop({ type: () => [Object] })
+  attachments?: Attachment[]
 
   createdAt: any
 }
